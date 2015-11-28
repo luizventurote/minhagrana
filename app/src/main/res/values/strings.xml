@@ -16,5 +16,23 @@
     <string name="novo_gasto_hint">Novo gasto</string>
     <string name="dialog_input_text_add_prefill"></string>
     <string name="quantia_hint">Quantia</string>
+    <string name="title_activity_novo_gasto">NovoGasto</string>
+
+    <string name="novo_gasto">Novo gasto</string>
+    <string name="categoria">Categoria</string>
+    <string name="valor">Valor</string>
+    <string name="data">Data</string>
+    <string name="selecione">Selecione</string>
+    <string name="descricao">Descrição</string>
+    <string name="local">Local</string>
+    <string name="gastei">Gastei !!</string>
+
+    <string-array name="categoria_gasto">
+        <item>Alimentação</item>
+        <item>Transporte</item>
+        <item>Combustível</item>
+        <item>Hospedagem</item>
+        <item>Outros</item>
+    </string-array>
 
 </resources>
