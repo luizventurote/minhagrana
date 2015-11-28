@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -166,13 +167,28 @@ public class MainActivity extends AppCompatActivity {
         new MaterialDialog.Builder(this)
                 .title(R.string.dialog_input_text_add_title)
                 .content(R.string.dialog_input_text_add)
-                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
-                .input(R.string.dialog_input_text_add_hint, R.string.dialog_input_text_add_prefill, new MaterialDialog.InputCallback() {
+                .theme(Theme.DARK)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_TEXT)
+                .input(R.string.quantia_hint, R.string.dialog_input_text_add_prefill, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        // Do something
+                    }
+                }).show();
+
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.dialog_input_text_add_title)
+                .content(R.string.dialog_input_text_add)
+                .theme(Theme.DARK)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_TEXT)
+                .input(R.string.novo_gasto_hint, R.string.dialog_input_text_add_prefill, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         // Do something
                         listAdapter.add(input.toString());
                     }
                 }).show();
+
     }
 }
