@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">MinhaGrana</string>
-    <string name="title_activity_main">Minha Grana</string>
-
-    <string name="hello_world">Minha grana android app test!</string>
-    <string name="action_settings">Settings</string>
-</resources>
