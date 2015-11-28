@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         // Do something
+                        listAdapter.add(input.toString());
                     }
                 }).show();
     }
