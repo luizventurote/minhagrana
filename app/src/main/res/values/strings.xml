@@ -12,8 +12,9 @@
     <string name="menu_float_remove">Remover</string>
 
     <string name="dialog_input_text_add_title">Adicionar</string>
-    <string name="dialog_input_text_add">Adicionar uma quantia</string>
-    <string name="dialog_input_text_add_hint">hint</string>
-    <string name="dialog_input_text_add_prefill">prefill</string>
+    <string name="dialog_input_text_add"></string>
+    <string name="novo_gasto_hint">Novo gasto</string>
+    <string name="dialog_input_text_add_prefill"></string>
+    <string name="quantia_hint">Quantia</string>
 
 </resources>
