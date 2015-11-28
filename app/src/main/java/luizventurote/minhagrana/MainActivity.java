@@ -1,5 +1,6 @@
 package luizventurote.minhagrana;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Save header or result
      */
+    private Context context = this;
     private AccountHeader headerResult = null;
     private Drawer result = null;
     private boolean opened = false;
@@ -115,8 +117,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.action_a).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
-                ShowDialogAddValue();
+               // Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
+               // ShowDialogAddValue();
+                startActivity(new Intent(context, NovoGasto.class));
             }
         });
 
@@ -175,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                         // Do something
                     }
                 }).show();
-
 
         new MaterialDialog.Builder(this)
                 .title(R.string.dialog_input_text_add_title)
