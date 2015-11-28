@@ -9,8 +9,10 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -26,13 +28,20 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     /**
      * Save header or result
      */
+    //variaveis pessoais
     private Context context = this;
+    private List<Map<String, Object>> gastos;
+
+
     private AccountHeader headerResult = null;
     private Drawer result = null;
     private boolean opened = false;
@@ -61,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Show ListView
         this.showListView();
+
     }
 
     /**
@@ -117,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.action_a).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
-               // ShowDialogAddValue();
+                // Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
+                // ShowDialogAddValue();
                 startActivity(new Intent(context, NovoGasto.class));
             }
         });
@@ -140,27 +150,44 @@ public class MainActivity extends AppCompatActivity {
         mainListView = (ListView) findViewById( R.id.listViewValues );
 
         // Create and populate a List of planet names.
-        String[] planets = new String[] { "Mercury", "Venus", "Earth", "Mars",
-                "Jupiter", "Saturn", "Uranus", "Neptune"};
-        ArrayList<String> planetList = new ArrayList<String>();
-        planetList.addAll( Arrays.asList(planets) );
+        String[] de = {"descricao", "valor"};
+        int[] para = {R.id.descricao, R.id.valor};
+        SimpleAdapter adapter = new SimpleAdapter(this, listarGastos(), R.layout.itens_da_lista_gasto, de, para);
 
-        // Create ArrayAdapter using the planet list.
-        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, planetList);
+        ListView lv = (ListView) findViewById(R.id.listViewValues);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(chamaAtividades(this));
 
-        // Add more planets. If you passed a String[] instead of a List<String>
-        // into the ArrayAdapter constructor, you must not add more items.
-        // Otherwise an exception will occur.
-        listAdapter.add( "Ceres" );
-        listAdapter.add("Terra");
-        listAdapter.add( "Pluto" );
-        listAdapter.add( "Haumea" );
-        listAdapter.add( "Makemake" );
-        listAdapter.add( "Eris" );
-
-        // Set the ArrayAdapter as the ListView's adapter.
-        mainListView.setAdapter( listAdapter );
     }
+
+    public AdapterView.OnItemClickListener chamaAtividades(final Context context){
+        return(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> av, View v, int position, long id) {
+                Map<String, Object> map = gastos.get(position);
+               //AQUI VAI O (CÓDIGO A SER DEFINIDO)
+            }
+        });
+    }
+
+    private List<Map<String, Object>> listarGastos() {
+        this.gastos = new ArrayList<Map<String, Object>>();
+
+        Map<String, Object> item = new HashMap<String, Object>();
+        item.put("descricao", "Churrasco");
+        item.put("valor", "50,00");
+        gastos.add(item);
+
+        item = new HashMap<String, Object>();
+        item.put("descricao", "Onibus");
+        item.put("valor", "20,00");
+
+        gastos.add(item);
+
+        return gastos;
+
+    }
+
 
     /**
      * Open Dialog to Add a value
