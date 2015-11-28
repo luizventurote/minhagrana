@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         // into the ArrayAdapter constructor, you must not add more items.
         // Otherwise an exception will occur.
         listAdapter.add( "Ceres" );
+        listAdapter.add("Terra");
         listAdapter.add( "Pluto" );
         listAdapter.add( "Haumea" );
         listAdapter.add( "Makemake" );
