@@ -4,10 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import luizventurote.minhagrana.helper.Helper;
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 
 public class MovimentacaoFinanceiraSql {
@@ -37,11 +36,10 @@ public class MovimentacaoFinanceiraSql {
         ContentValues values = new ContentValues();
         values.put("descricao", mov.getDescricao());
         values.put("valor", mov.getValor());
-        values.put("data", mov.getData().toString());
-        values.put("data_system", mov.getDataSystem().toString());
+        values.put("data", Helper.formatDateToString( mov.getData() ));
+        values.put("data_system", Helper.formatDateToString( mov.getDataSystem() ));
 
         Long id = database.insert(tabela, null, values);
-
 
         Log.d("LOG_DB", "Registro inserido - ID: " + Long.toString(id));
 
@@ -54,6 +52,15 @@ public class MovimentacaoFinanceiraSql {
      * @param mov
      */
     public void atualizar(MovimentacaoFinanceira mov) {
+
+        ContentValues values = new ContentValues();
+
+        long id = mov.getId();
+        values.put("descricao", mov.getDescricao());
+        values.put("valor", mov.getValor());
+        values.put("data", mov.getData().toString());
+
+        database.update(tabela, values, "_id = ?", new String[]{String.valueOf(id)});
     }
 
     /**
@@ -62,6 +69,42 @@ public class MovimentacaoFinanceiraSql {
      * @param mov
      */
     public void deletar(MovimentacaoFinanceira mov) {
+
+        long id = mov.getId();
+        database.delete(tabela, "_id = ?", new String[]{String.valueOf(id)});
+    }
+
+    /**
+     * Buscar registro por Id
+     *
+     * @param id
+     * @return MovimentacaoFinanceira
+     */
+    public MovimentacaoFinanceira buscar(Long id) {
+
+        // Cursor de registros
+        Cursor cursor =  this.database.rawQuery("select * from " + this.tabela + " where _id ='" + id + "'" , null);
+
+        MovimentacaoFinanceira mov = null;
+
+        // Verifica se tem algum resultado
+        if(cursor.getCount() > 0) {
+
+            cursor.moveToFirst();
+
+            do {
+
+                mov = new MovimentacaoFinanceira(
+                    cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getDouble(2),
+                    Helper.formatStringToDate( cursor.getString(4) )
+                );
+
+            } while (cursor.moveToNext());
+        }
+
+        return mov;
     }
 
     /**

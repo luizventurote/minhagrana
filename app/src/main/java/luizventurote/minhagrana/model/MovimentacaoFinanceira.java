@@ -59,4 +59,16 @@ public class MovimentacaoFinanceira extends ObjetoPersistente {
     public Date getDataSystem() {
         return data;
     }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
 }

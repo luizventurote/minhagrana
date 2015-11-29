@@ -2,10 +2,8 @@ package luizventurote.minhagrana.controller;
 
 import android.test.AndroidTestCase;
 import android.util.Log;
-
 import java.util.Date;
 import java.util.List;
-
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 
 public class testMainController extends AndroidTestCase {
@@ -21,7 +19,7 @@ public class testMainController extends AndroidTestCase {
     }
 
     /**
-     * Busca todos os objetos do banco de dados
+     * Testa a busca todos os objetos do banco de dados
      */
     public void test_buscarMovimentacaoFinanceira() {
 
@@ -39,5 +37,64 @@ public class testMainController extends AndroidTestCase {
 
             j++;
         }
+    }
+
+    /**
+     * Testa a busca de registro através do Id
+     */
+    public void test_buscarMovimentacaoFinanceiraPorId() {
+
+        // Insere um novo registro e recupera o id
+        Long id = MainController.inserirMovimentacaoFinanceira(this.getContext(), "Test description", 59.90, new Date());
+
+        // Faz a busca do registro no banco de dados
+        MovimentacaoFinanceira mov = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
+
+        Log.d("LOG_TEST_LIST", "test_buscarMovimentacaoFinanceiraPorId: " + mov.getId() + " - " + mov.getDescricao() +
+                " - " + mov.getValor() + " - " + mov.getData());
+    }
+
+    /**
+     * Testa a busca de registro através do Id
+     */
+    public void test_atualizarMovimentacaoFinanceira() {
+
+        // Insere um novo registro e recupera o id
+        Long id = MainController.inserirMovimentacaoFinanceira(this.getContext(), "Test description", 99.90, new Date());
+
+        // Faz a busca do registro no banco de dados
+        MovimentacaoFinanceira mov = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
+
+        // Realiza a alteração
+        mov.setDescricao("New test description!");
+        mov.setValor(59.90);
+
+        // Salva as alterações no banco de dados
+        MainController.atualizarMovimentacaoFinanceira(this.getContext(), mov);
+
+        // Faz a busca do registro no banco de dados
+        mov = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
+
+        assertEquals(59.90, mov.getValor());
+        assertEquals("New test description!", mov.getDescricao());
+    }
+
+    /**
+     * Faz o teste de deleção
+     */
+    public void test_deletarMovimentacaoFinanceira() {
+
+        // Insere um novo registro e recupera o id
+        Long id = MainController.inserirMovimentacaoFinanceira(this.getContext(), "Test description", 99.90, new Date());
+
+        // Faz a busca do registro no banco de dados
+        MovimentacaoFinanceira mov = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
+
+        MainController.deletarMovimentacaoFinanceira(this.getContext(), mov);
+
+        // Faz a busca do registro no banco de dados
+        mov = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
+
+        assertNull(mov);
     }
 }
