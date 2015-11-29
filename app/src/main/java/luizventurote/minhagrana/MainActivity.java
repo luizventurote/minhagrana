@@ -27,7 +27,6 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 // ShowDialogAddValue();
-                startActivity(new Intent(context, NovoGasto.class));
+                startActivity(new Intent(context, MovimentacaoFinanceiraActivity.class));
             }
         });
 

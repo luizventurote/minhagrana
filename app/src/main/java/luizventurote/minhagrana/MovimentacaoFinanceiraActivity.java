@@ -14,7 +14,7 @@ import android.widget.Spinner;
 
 import java.util.Calendar;
 
-public class NovoGasto extends AppCompatActivity {
+public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
     private int dia, mes, ano;
     private Button dataGasto;
@@ -22,7 +22,7 @@ public class NovoGasto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_novo_gasto);
+        setContentView(R.layout.activity_movimentacao_financeira);
         Calendar calendario = Calendar.getInstance();
         dia = calendario.get(Calendar.DAY_OF_MONTH);
         mes = calendario.get(Calendar.MONTH);
