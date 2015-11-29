@@ -2,9 +2,7 @@ package luizventurote.minhagrana.model;
 
 import java.util.Date;
 
-public class MovimentacaoFinanceira {
-
-    private Long id;
+public class MovimentacaoFinanceira extends ObjetoPersistente {
 
     /**
      * Descrição da movimentação financeira
