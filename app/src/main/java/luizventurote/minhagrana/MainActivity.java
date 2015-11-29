@@ -25,10 +25,14 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import luizventurote.minhagrana.controller.MainController;
+import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -162,24 +166,38 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Monta a lista de gastos para ser exibido no ListView
+     *
+     * @return List
+     */
     private List<Map<String, Object>> listarGastos() {
+
+        // Gastos
         this.gastos = new ArrayList<Map<String, Object>>();
-
         Map<String, Object> item = new HashMap<String, Object>();
-        item.put("descricao", "Churrasco");
-        item.put("valor", "50,00");
-        gastos.add(item);
 
-        item = new HashMap<String, Object>();
-        item.put("descricao", "Onibus");
-        item.put("valor", "20,00");
+        // Busca uma lista com todos os gastos
+        List<MovimentacaoFinanceira> lista_gastos = MainController.buscarMovimentacaoFinanceira(this);
 
-        gastos.add(item);
+        // Model de movimentação financeira
+        MovimentacaoFinanceira mov = null;
+
+        // Loop de gastos
+        int j = 0; while (lista_gastos.size() > j) {
+
+            // Load model
+            mov = lista_gastos.get(j);
+
+            item.put("descricao", mov.getDescricao());
+            item.put("valor", mov.getValor());
+            gastos.add(item);
+
+            j++;
+        }
 
         return gastos;
-
     }
-
 
     /**
      * Open Dialog to Add a value
