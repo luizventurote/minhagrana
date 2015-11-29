@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -27,6 +30,8 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
     private Drawer result = null;
     private boolean opened = false;
     static SQLiteDatabase database;
+    private Toast mToast;
+
+    /**
+     * Mês selecionado pelo usuário para exibição de dados
+     */
+    private int mes_selecionado = -1;
 
     /**
      * Floating action button
@@ -229,5 +240,86 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).show();
 
+    }
+
+    /**
+     * Infla o menu de ícones da toolbar
+     *
+     * @param menu
+     * @return boolean
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /**
+     * Abre um dialog para selecionar o mês selecionado
+     *
+     * @param item
+     */
+    public void showSelectMonthDialog(MenuItem item) {
+
+        int month = getMesSelecionado();
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.title_meses_dialog)
+                .items(R.array.meses)
+                .itemsCallbackSingleChoice(month, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+                        showToast(which + ": " + text);
+
+                        // Seta o mês selecionado
+                        mes_selecionado = which;
+
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+                        return true;
+                    }
+                })
+                .positiveText(R.string.choose)
+                .show();
+    }
+
+    /**
+     * Exibe uma string no Toast
+     *
+     * @param message
+     */
+    private void showToast(String message) {
+        if (mToast != null) {
+            mToast.cancel();
+            mToast = null;
+        }
+        mToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        mToast.show();
+    }
+
+    /**
+     * Busca o mês para exibição de dados
+     *
+     * @return int
+     */
+    private int getMesSelecionado() {
+
+        if(this.mes_selecionado == -1) {
+
+            // Seleciona o mês atual
+            Date date= new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int month = cal.get(Calendar.MONTH);
+
+            this.mes_selecionado = month;
+        }
+
+        return this.mes_selecionado;
     }
 }

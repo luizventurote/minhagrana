@@ -27,6 +27,9 @@
     <string name="local">Local</string>
     <string name="gastei">Gastei !!</string>
 
+    <string name="title_meses_dialog">Selecione o mês</string>
+    <string name="choose">Selecionar</string>
+
     <string-array name="categoria_gasto">
         <item>Alimentação</item>
         <item>Transporte</item>
