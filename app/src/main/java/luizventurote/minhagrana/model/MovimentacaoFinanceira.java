@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class MovimentacaoFinanceira {
 
+    private Long id;
+
     /**
      * Descrição da movimentação financeira
      */
@@ -15,15 +17,33 @@ public class MovimentacaoFinanceira {
     private Double valor;
 
     /**
-     * Data da movimentação
+     * Data de inserção no sistema
+     */
+    private Date data_system;
+
+    /**
+     * Data da movimentação financeira
      */
     private Date data;
 
-
-    public MovimentacaoFinanceira(String descricao, Double valor) {
+    public MovimentacaoFinanceira(String descricao, Double valor, Date data) {
         this.descricao = descricao;
         this.valor = valor;
-        this.data = new Date();
+        this.data = data;
+        this.data_system = new Date();
+    }
+
+    public MovimentacaoFinanceira(Long id, String descricao, Double valor, Date data) {
+        this.id = id;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.data = data;
+    }
+
+    public MovimentacaoFinanceira(Long id, String descricao, Double valor) {
+        this.id = id;
+        this.descricao = descricao;
+        this.valor = valor;
     }
 
     public String getDescricao() {
@@ -35,6 +55,10 @@ public class MovimentacaoFinanceira {
     }
 
     public Date getData() {
+        return data;
+    }
+
+    public Date getDataSystem() {
         return data;
     }
 }

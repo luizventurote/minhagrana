@@ -2,6 +2,7 @@ package luizventurote.minhagrana;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -25,26 +25,19 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * Save header or result
-     */
-    //variaveis pessoais
     private Context context = this;
     private List<Map<String, Object>> gastos;
-
-
     private AccountHeader headerResult = null;
     private Drawer result = null;
     private boolean opened = false;
+    static SQLiteDatabase database;
 
     /**
      * Floating action button
@@ -70,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Show ListView
         this.showListView();
-
     }
 
     /**
