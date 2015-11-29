@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 // ShowDialogAddValue();
-                startActivity(new Intent(context, NovoGasto.class));
+                startActivity(new Intent(context, MovimentacaoFinanceiraActivity.class));
             }
         });
 

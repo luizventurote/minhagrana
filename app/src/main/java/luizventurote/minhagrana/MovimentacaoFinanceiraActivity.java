@@ -14,7 +14,7 @@ import android.widget.Spinner;
 
 import java.util.Calendar;
 
-public class NovoGasto extends AppCompatActivity {
+public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
     private int dia, mes, ano;
     private Button dataGasto;
