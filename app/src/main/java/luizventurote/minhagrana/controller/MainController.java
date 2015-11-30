@@ -101,4 +101,24 @@ public class MainController {
 
         db.close();
     }
+
+    /**
+     * Realiza uma busca entre duas datas
+     *
+     * @param context
+     * @param minDate minDate Data minima yyyy-MM-dd
+     * @param maxDate maxDate Data máxima yyyy-MM-dd
+     * @return List<MovimentacaoFinanceira>
+     */
+    public static List<MovimentacaoFinanceira> buscarEntreDatas(Context context, String minDate, String maxDate) {
+
+        Database db = Database.getInstance(context);
+        MovimentacaoFinanceiraSql mov_sql = new MovimentacaoFinanceiraSql( db.getWritableDatabase() );
+
+        List<MovimentacaoFinanceira> list = mov_sql.buscarEntreDatas(minDate, maxDate);
+
+        db.close();
+
+        return list;
+    }
 }
