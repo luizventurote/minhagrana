@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import luizventurote.minhagrana.controller.MainController;
+import luizventurote.minhagrana.helper.Helper;
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 
 public class MainActivity extends AppCompatActivity {
@@ -164,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
         mainListView = (ListView) findViewById( R.id.listViewValues );
 
         // Create and populate a List of planet names.
-        String[] de = {"descricao", "valor"};
-        int[] para = {R.id.descricao, R.id.valor};
+        String[] de = {"descricao", "data", "valor"};
+        int[] para = {R.id.descricao, R.id.data, R.id.valor};
         SimpleAdapter adapter = new SimpleAdapter(this, listarGastos(), R.layout.itens_da_lista_gasto, de, para);
 
         ListView lv = (ListView) findViewById(R.id.listViewValues);
@@ -195,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
         this.gastos = new ArrayList<Map<String, Object>>();
         Map<String, Object> item = new HashMap<String, Object>();
 
-        // Busca uma lista com todos os gastos
-        List<MovimentacaoFinanceira> lista_gastos = MainController.buscarMovimentacaoFinanceira(this);
+        // Busca uma lista de movimentações financeiras
+        List<MovimentacaoFinanceira> lista_gastos = MainController.buscarPorMes(this, ano_selecionado, mes_selecionado+1);
 
         // Model de movimentação financeira
         MovimentacaoFinanceira mov = null;
@@ -208,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
             mov = lista_gastos.get(j);
 
             item.put("descricao", mov.getDescricao());
+            item.put("data", Helper.formatDateToString(mov.getData()));
             item.put("valor", mov.getValor());
             gastos.add(item);
 
@@ -289,7 +291,11 @@ public class MainActivity extends AppCompatActivity {
                         // Seta o mês selecionado
                         mes_selecionado = which;
 
+                        // Atualiza o texto do item do menu
                         atualizarMes();
+
+                        // Atualiza os dados do ListView
+                        showListView();
 
                         /**
                          * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
