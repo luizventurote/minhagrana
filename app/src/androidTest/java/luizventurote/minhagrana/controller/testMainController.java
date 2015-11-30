@@ -2,10 +2,8 @@ package luizventurote.minhagrana.controller;
 
 import android.test.AndroidTestCase;
 import android.util.Log;
-
 import java.util.Date;
 import java.util.List;
-
 import luizventurote.minhagrana.helper.Helper;
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 

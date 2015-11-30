@@ -2,6 +2,7 @@ package luizventurote.minhagrana;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,19 +11,27 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
-
+import android.widget.Toast;
+import java.util.Date;
 import java.util.Calendar;
+import luizventurote.minhagrana.controller.MainController;
+import luizventurote.minhagrana.helper.Helper;
 
 public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
     private int dia, mes, ano;
     private Button dataGasto;
+    private EditText valor;
+    private EditText descricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_novo_gasto);
+        setContentView(R.layout.activity_movimentacao_financeira);
+
+        //Variaveis do calendário
         Calendar calendario = Calendar.getInstance();
         dia = calendario.get(Calendar.DAY_OF_MONTH);
         mes = calendario.get(Calendar.MONTH);
@@ -30,6 +39,7 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
         dataGasto = (Button) findViewById(R.id.data);
 
+        //Montagem do spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categoria_gasto, android.R.layout.simple_spinner_item);
         Spinner categoria = (Spinner) findViewById(R.id.categoria);
         categoria.setAdapter(adapter);
@@ -53,11 +63,28 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             ano = year;
             mes = monthOfYear;
             dia = dayOfMonth;
-            dataGasto.setText(dia + "/" + (mes+1) + "/" + ano);
+            dataGasto.setText(dia + "/" + (mes + 1) + "/" + ano);
         }
     };
 
-    public void registrarGasto(View v){
+    public void inserirMovimentacaoFinanceira(View v){
+
+        Toast.makeText(this, "Gasto registrado", Toast.LENGTH_SHORT).show();
+
+        Date data;
+        Double valorD;
+        String d;
+        Long retornoId;
+
+        d = (dia + "/" + (mes+1) + "/" + ano);
+
+        data = Helper.formatStringToDate(d);
+        this.descricao = (EditText) findViewById(R.id.descricao);
+        this.valor = (EditText) findViewById(R.id.valor);
+        valorD = Double.parseDouble(this.valor.getText().toString().trim());
+
+
+        retornoId =  MainController.inserirMovimentacaoFinanceira(this, this.descricao.getText().toString(), valorD, data);
 
     }
 
