@@ -147,4 +147,42 @@ public class MovimentacaoFinanceiraSql {
 
         return list;
     }
+
+    /**
+     * Realiza uma busca entre duas datas
+     *
+     * @param minDate Data minima yyyy-MM-dd
+     * @param maxDate Data máxima yyyy-MM-dd
+     * @return List<MovimentacaoFinanceira>
+     */
+    public List<MovimentacaoFinanceira> buscarEntreDatas(String minDate, String maxDate) {
+
+        // Lista
+        List<MovimentacaoFinanceira> list = new ArrayList<MovimentacaoFinanceira>();
+
+        // Cursor
+        Cursor cursor = database.query("movimentacao_financeira", null, "data BETWEEN ? AND ?", new String[] {
+                minDate + " 00:00:00", maxDate + " 23:59:59" }, null, null, null, null);
+
+        // Verifica se tem algum resultado
+        if(cursor.getCount() > 0) {
+
+            cursor.moveToFirst();
+
+            do {
+
+                MovimentacaoFinanceira mov = new MovimentacaoFinanceira(
+                    cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getDouble(2),
+                    Helper.formatStringToDate( cursor.getString(4) )
+                );
+
+                list.add(mov);
+
+            } while (cursor.moveToNext());
+        }
+
+        return list;
+    }
 }

@@ -1,8 +1,6 @@
 package luizventurote.minhagrana.controller;
 
 import android.content.Context;
-
-import java.sql.SQLOutput;
 import java.util.Date;
 import java.util.List;
 import luizventurote.minhagrana.helper.Database;
@@ -102,5 +100,25 @@ public class MainController {
         mov_sql.deletar(mov);
 
         db.close();
+    }
+
+    /**
+     * Realiza uma busca entre duas datas
+     *
+     * @param context
+     * @param minDate minDate Data minima yyyy-MM-dd
+     * @param maxDate maxDate Data máxima yyyy-MM-dd
+     * @return List<MovimentacaoFinanceira>
+     */
+    public static List<MovimentacaoFinanceira> buscarEntreDatas(Context context, String minDate, String maxDate) {
+
+        Database db = Database.getInstance(context);
+        MovimentacaoFinanceiraSql mov_sql = new MovimentacaoFinanceiraSql( db.getWritableDatabase() );
+
+        List<MovimentacaoFinanceira> list = mov_sql.buscarEntreDatas(minDate, maxDate);
+
+        db.close();
+
+        return list;
     }
 }

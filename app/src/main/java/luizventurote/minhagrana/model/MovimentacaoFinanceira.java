@@ -1,6 +1,8 @@
 package luizventurote.minhagrana.model;
 
+import android.util.Log;
 import java.util.Date;
+import luizventurote.minhagrana.helper.Helper;
 
 public class MovimentacaoFinanceira extends ObjetoPersistente {
 
@@ -70,5 +72,10 @@ public class MovimentacaoFinanceira extends ObjetoPersistente {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public void printLog() {
+        Log.d("LOG_MOVFIN", this.id + " - " + this.descricao +
+                " - " + this.valor + " - " + Helper.formatDateToString(this.data));
     }
 }

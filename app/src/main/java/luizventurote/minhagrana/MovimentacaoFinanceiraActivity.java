@@ -14,16 +14,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.util.Date;
-
 import java.util.Calendar;
-
 import luizventurote.minhagrana.controller.MainController;
 import luizventurote.minhagrana.helper.Helper;
 
-public class MovimentacaoFinanceiraActivity extends AppCompatActivity{
-
+public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
     private int dia, mes, ano;
     private Button dataGasto;

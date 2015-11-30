@@ -4,6 +4,7 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 import java.util.Date;
 import java.util.List;
+import luizventurote.minhagrana.helper.Helper;
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 
 public class testMainController extends AndroidTestCase {
@@ -96,5 +97,39 @@ public class testMainController extends AndroidTestCase {
         mov = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
 
         assertNull(mov);
+    }
+
+    /**
+     * Teste de busca entre datas
+     */
+    public void test_buscarEntreDatas() {
+
+        // Data mínima
+        String minDate = "1890-01-01";
+
+        // Data máxima
+        String maxDate = "1890-12-31";
+
+        // Faz a busca dos registros no banco de dados
+        List<MovimentacaoFinanceira> list = MainController.buscarEntreDatas(this.getContext(), minDate, maxDate);
+
+        if( list.size() == 0 ) {
+
+            // Insere registros de teste
+            Date d = Helper.formatStringToDate("1890-05-02 22:00:00");
+            MainController.inserirMovimentacaoFinanceira(this.getContext(), "Registro de Teste", 90.9, d);
+
+            d = Helper.formatStringToDate("1880-05-02 22:00:00");
+            MainController.inserirMovimentacaoFinanceira(this.getContext(), "Registro de Teste", 90.9, d);
+
+            // Faz a busca dos registros no banco de dados
+            List<MovimentacaoFinanceira> sub_list = MainController.buscarEntreDatas(this.getContext(), minDate, maxDate);
+
+            assertTrue( sub_list.size() == 1 );
+
+        } else {
+
+            assertTrue( list.size() == 1 );
+        }
     }
 }
