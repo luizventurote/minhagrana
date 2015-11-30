@@ -15,7 +15,7 @@ public class Helper {
      */
     public static String formatDateToString(Date date) {
 
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String reportDate = df.format(date);
 
@@ -32,7 +32,7 @@ public class Helper {
 
         try {
 
-            DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date obj_date = format.parse(date);
 
             return obj_date;
