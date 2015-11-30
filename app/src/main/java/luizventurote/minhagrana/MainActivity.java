@@ -2,6 +2,7 @@ package luizventurote.minhagrana;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -31,19 +31,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import luizventurote.minhagrana.controller.MainController;
+import luizventurote.minhagrana.model.MovimentacaoFinanceira;
+
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * Save header or result
-     */
-    //variaveis pessoais
     private Context context = this;
     private List<Map<String, Object>> gastos;
-
-
     private AccountHeader headerResult = null;
     private Drawer result = null;
     private boolean opened = false;
+    static SQLiteDatabase database;
 
     /**
      * Floating action button
@@ -69,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Show ListView
         this.showListView();
-
     }
 
     /**
@@ -169,24 +166,38 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Monta a lista de gastos para ser exibido no ListView
+     *
+     * @return List
+     */
     private List<Map<String, Object>> listarGastos() {
+
+        // Gastos
         this.gastos = new ArrayList<Map<String, Object>>();
-
         Map<String, Object> item = new HashMap<String, Object>();
-        item.put("descricao", "Churrasco");
-        item.put("valor", "50,00");
-        gastos.add(item);
 
-        item = new HashMap<String, Object>();
-        item.put("descricao", "Onibus");
-        item.put("valor", "20,00");
+        // Busca uma lista com todos os gastos
+        List<MovimentacaoFinanceira> lista_gastos = MainController.buscarMovimentacaoFinanceira(this);
 
-        gastos.add(item);
+        // Model de movimentação financeira
+        MovimentacaoFinanceira mov = null;
+
+        // Loop de gastos
+        int j = 0; while (lista_gastos.size() > j) {
+
+            // Load model
+            mov = lista_gastos.get(j);
+
+            item.put("descricao", mov.getDescricao());
+            item.put("valor", mov.getValor());
+            gastos.add(item);
+
+            j++;
+        }
 
         return gastos;
-
     }
-
 
     /**
      * Open Dialog to Add a value
