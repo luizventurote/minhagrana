@@ -47,11 +47,17 @@ public class MainActivity extends AppCompatActivity {
     private boolean opened = false;
     static SQLiteDatabase database;
     private Toast mToast;
+    private Menu menu;
 
     /**
      * Mês selecionado pelo usuário para exibição de dados
      */
     private int mes_selecionado = -1;
+
+    /**
+     * Ano selecionado pelo usuário para exibição de dados
+     */
+    private int ano_selecionado = 2015;
 
     /**
      * Floating action button
@@ -68,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.mes_selecionado = getMesSelecionado();
 
         // Show Drawer
         this.showDrawer(savedInstanceState);
@@ -252,6 +260,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        this.menu = menu;
+
+        atualizarMes();
+
         return true;
     }
 
@@ -275,6 +288,8 @@ public class MainActivity extends AppCompatActivity {
 
                         // Seta o mês selecionado
                         mes_selecionado = which;
+
+                        atualizarMes();
 
                         /**
                          * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
@@ -320,5 +335,61 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return this.mes_selecionado;
+    }
+
+    public void atualizarMes() {
+
+        MenuItem bedMenuItem = menu.findItem(R.id.action_mes_atual);
+
+        switch (this.mes_selecionado) {
+
+            case 0:
+                bedMenuItem.setTitle(R.string.mes_janeiro);
+                break;
+
+            case 1:
+                bedMenuItem.setTitle(R.string.mes_fevereiro);
+                break;
+
+            case 2:
+                bedMenuItem.setTitle(R.string.mes_marco);
+                break;
+
+            case 3:
+                bedMenuItem.setTitle(R.string.mes_abril);
+                break;
+
+            case 4:
+                bedMenuItem.setTitle(R.string.mes_maio);
+                break;
+
+            case 5:
+                bedMenuItem.setTitle(R.string.mes_junho);
+                break;
+
+            case 6:
+                bedMenuItem.setTitle(R.string.mes_julho);
+                break;
+
+            case 7:
+                bedMenuItem.setTitle(R.string.mes_agosto);
+                break;
+
+            case 8:
+                bedMenuItem.setTitle(R.string.mes_setembro);
+                break;
+
+            case 9:
+                bedMenuItem.setTitle(R.string.mes_outubro);
+                break;
+
+            case 10:
+                bedMenuItem.setTitle(R.string.mes_novembro);
+                break;
+
+            case 11:
+                bedMenuItem.setTitle(R.string.mes_dezembro);
+                break;
+        }
     }
 }

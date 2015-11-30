@@ -38,4 +38,18 @@
         <item>Outros</item>
     </string-array>
 
+    <!-- Meses -->
+    <string name="mes_janeiro">Janeiro</string>
+    <string name="mes_fevereiro">Fevereiro</string>
+    <string name="mes_marco">Março</string>
+    <string name="mes_abril">Abril</string>
+    <string name="mes_maio">Maio</string>
+    <string name="mes_junho">Junho</string>
+    <string name="mes_julho">Julho</string>
+    <string name="mes_agosto">Agosto</string>
+    <string name="mes_setembro">Setembro</string>
+    <string name="mes_outubro">Outubro</string>
+    <string name="mes_novembro">Novembro</string>
+    <string name="mes_dezembro">Dezembro</string>
+
 </resources>

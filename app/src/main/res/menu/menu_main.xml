@@ -16,4 +16,20 @@
         app:showAsAction="ifRoom"
         ></item>
 
+    <item
+        android:id="@+id/action_mes_atual"
+        android:orderInCategory="100"
+        android:title="Mês"
+        android:onClick="showSelectMonthDialog"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_ano_atual"
+        android:orderInCategory="150"
+        android:title="2015"
+        android:onClick="showSelectMonthDialog"
+        app:showAsAction="ifRoom"
+        />
+
 </menu>
