@@ -1,9 +1,7 @@
 package luizventurote.minhagrana.model;
 
 import android.util.Log;
-
 import java.util.Date;
-
 import luizventurote.minhagrana.helper.Helper;
 
 public class MovimentacaoFinanceira extends ObjetoPersistente {

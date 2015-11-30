@@ -33,6 +33,7 @@ public class Helper {
         try {
 
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
             Date obj_date = format.parse(date);
 
             return obj_date;
