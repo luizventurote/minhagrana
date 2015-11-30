@@ -337,6 +337,9 @@ public class MainActivity extends AppCompatActivity {
         return this.mes_selecionado;
     }
 
+    /**
+     * Atualiza o texto do item do menu da toolbar com o mês selecionado
+     */
     public void atualizarMes() {
 
         MenuItem bedMenuItem = menu.findItem(R.id.action_mes_atual);
