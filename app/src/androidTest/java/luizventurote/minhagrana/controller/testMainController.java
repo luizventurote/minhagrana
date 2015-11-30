@@ -16,7 +16,9 @@ public class testMainController extends AndroidTestCase {
      */
     public void test_inserirMovimentacaoFinanceira() {
 
-        Long id = MainController.inserirMovimentacaoFinanceira(this.getContext(), "Test description", 99.90, new Date());
+        Date data = Helper.formatStringToDate("2015-02-21 22:00:00");
+
+        Long id = MainController.inserirMovimentacaoFinanceira(this.getContext(), "Test description", 99.90, data);
 
         assertTrue(id>0);
     }
@@ -126,6 +128,36 @@ public class testMainController extends AndroidTestCase {
 
             // Faz a busca dos registros no banco de dados
             List<MovimentacaoFinanceira> sub_list = MainController.buscarEntreDatas(this.getContext(), minDate, maxDate);
+            assertTrue( sub_list.size() == 1 );
+
+        } else {
+
+            assertTrue( list.size() == 1 );
+        }
+    }
+
+    /**
+     * Teste de busca de registros de um determinado mês
+     */
+    public void test_buscarPorMes() {
+
+        // Ano
+        int ano = 1780;
+
+        // Mês
+        int mes = 05;
+
+        // Faz a busca dos registros no banco de dados
+        List<MovimentacaoFinanceira> list = MainController.buscarPorMes(this.getContext(), ano, mes);
+
+        if( list.size() == 0 ) {
+
+            // Insere registros de teste
+            Date d = Helper.formatStringToDate("1780-05-02 22:00:00");
+            MainController.inserirMovimentacaoFinanceira(this.getContext(), "Registro de Teste", 90.9, d);
+
+            // Faz a busca dos registros no banco de dados
+            List<MovimentacaoFinanceira> sub_list = MainController.buscarPorMes(this.getContext(), ano, mes);
 
             assertTrue( sub_list.size() == 1 );
 
