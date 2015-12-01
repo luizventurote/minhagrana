@@ -76,7 +76,7 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         String d;
         Long retornoId;
 
-        d = (dia + "-" + (mes+1) + "-" + ano +" 00:00:00"); //yyyy-MM-dd HH:mm:ss
+        d = (ano + "-" + (mes+1) + "-" + dia +" 00:00:00"); //yyyy-MM-dd HH:mm:ss
 
         data = Helper.formatStringToDate(d);
         this.descricao = (EditText) findViewById(R.id.descricao);
