@@ -2,7 +2,7 @@ package luizventurote.minhagrana;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -76,7 +76,7 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         String d;
         Long retornoId;
 
-        d = (dia + "/" + (mes+1) + "/" + ano);
+        d = (dia + "-" + (mes+1) + "-" + ano +" 00:00:00"); //yyyy-MM-dd HH:mm:ss
 
         data = Helper.formatStringToDate(d);
         this.descricao = (EditText) findViewById(R.id.descricao);
@@ -86,6 +86,10 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
         retornoId =  MainController.inserirMovimentacaoFinanceira(this, this.descricao.getText().toString(), valorD, data);
 
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        finish();
     }
 
     @Override

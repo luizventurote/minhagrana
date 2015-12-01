@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 // Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 // ShowDialogAddValue();
                 startActivity(new Intent(context, MovimentacaoFinanceiraActivity.class));
+                finish();
             }
         });
 
@@ -157,22 +159,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Show List View
+     * Exibe a ListView
      */
     private void showListView() {
 
-        // Find the ListView resource.
-        mainListView = (ListView) findViewById( R.id.listViewValues );
-
-        // Create and populate a List of planet names.
+    
         String[] de = {"descricao", "data", "valor"};
         int[] para = {R.id.descricao, R.id.data, R.id.valor};
+
         SimpleAdapter adapter = new SimpleAdapter(this, listarGastos(), R.layout.itens_da_lista_gasto, de, para);
 
+        //Resgatando recurso ListView do XML
         ListView lv = (ListView) findViewById(R.id.listViewValues);
+
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(chamaAtividades(this));
-
     }
 
     public AdapterView.OnItemClickListener chamaAtividades(final Context context){
@@ -212,8 +213,11 @@ public class MainActivity extends AppCompatActivity {
             item.put("data", Helper.formatDateToString(mov.getData()));
             item.put("valor", mov.getValor());
             gastos.add(item);
+            item = new HashMap<String, Object>();
 
             j++;
+
+
         }
 
         return gastos;
