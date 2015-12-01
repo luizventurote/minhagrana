@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -18,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -180,8 +180,16 @@ public class MainActivity extends AppCompatActivity {
         return(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> av, View v, int position, long id) {
+
                 Map<String, Object> map = gastos.get(position);
-               //AQUI VAI O (CÓDIGO A SER DEFINIDO)
+
+                // Abre a activity de edição
+                Intent mIntent = new Intent(context, MovimentacaoFinanceiraActivity.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putInt("id", Integer.parseInt(gastos.get(position).get("id").toString()));
+                mIntent.putExtras(mBundle);
+                startActivity(mIntent);
+
             }
         });
     }
@@ -209,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
             // Load model
             mov = lista_gastos.get(j);
 
+            item.put("id", mov.getId());
             item.put("descricao", mov.getDescricao());
             item.put("data", Helper.formatDateToString(mov.getData()));
             item.put("valor", mov.getValor());
