@@ -31,6 +31,12 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimentacao_financeira);
 
+        // Verifica se o ID foi passado no intent
+        if( getIntent().hasExtra("id") ) {
+            Bundle extras = getIntent().getExtras();
+            Toast.makeText(this, Integer.toString(extras.getInt("id")), Toast.LENGTH_SHORT).show();
+        }
+
         //Variaveis do calendário
         Calendar calendario = Calendar.getInstance();
         dia = calendario.get(Calendar.DAY_OF_MONTH);
