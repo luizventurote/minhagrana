@@ -121,4 +121,36 @@ public class MainController {
 
         return list;
     }
+
+    /**
+     * Buscar todos os registros de um determinado mês
+     *
+     * @param context
+     * @param ano Ano yyyy
+     * @param mes Mês MM
+     * @return List<MovimentacaoFinanceira>
+     */
+    public static List<MovimentacaoFinanceira> buscarPorMes(Context context, int ano, int mes) {
+
+        Database db = Database.getInstance(context);
+        MovimentacaoFinanceiraSql mov_sql = new MovimentacaoFinanceiraSql( db.getWritableDatabase() );
+
+        String mes_selecionado = Integer.toString(mes);
+
+        if(mes < 10) {
+            mes_selecionado = "0"+Integer.toString(mes);
+        }
+
+        // Data mínima
+        String minDate = Integer.toString(ano) + "-" + mes_selecionado + "-01";
+
+        // Data máxima
+        String maxDate = Integer.toString(ano) + "-" + mes_selecionado + "-31";
+
+        List<MovimentacaoFinanceira> list = mov_sql.buscarEntreDatas(minDate, maxDate);
+
+        db.close();
+
+        return list;
+    }
 }
