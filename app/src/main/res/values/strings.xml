@@ -19,6 +19,8 @@
     <string name="title_activity_novo_gasto">NovoGasto</string>
 
     <string name="novo_gasto">Novo gasto</string>
+    <string name="editar_gasto">Editar gasto</string>
+    <string name="editar_credito">Editar crédito</string>
     <string name="categoria">Categoria</string>
     <string name="valor">Valor</string>
     <string name="data">Data</string>
@@ -26,6 +28,7 @@
     <string name="descricao">Descrição</string>
     <string name="local">Local</string>
     <string name="gastei">Gastei !!</string>
+    <string name="salvar">Salvar</string>
 
     <string name="title_meses_dialog">Selecione o mês</string>
     <string name="choose">Selecionar</string>
