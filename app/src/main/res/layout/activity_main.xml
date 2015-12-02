@@ -37,6 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="#FF6061"
                     android:weightSum="3.0" >
 
                     <RelativeLayout
@@ -59,7 +60,7 @@
                         android:layout_weight="1.0">
 
                         <TextView
-                            android:text="Gasto"
+                            android:text="Dia"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -73,7 +74,7 @@
                         android:layout_weight="1.0">
 
                         <TextView
-                            android:text="Dia"
+                            android:text="Valor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
