@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -76,7 +75,13 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         mes = calendario.get(Calendar.MONTH);
         ano = calendario.get(Calendar.YEAR);
 
-        dataGasto = (Button) findViewById(R.id.data);
+        // Data padrão
+        EditText act_text_data = (EditText) findViewById(R.id.data_text);
+        act_text_data.setText( dia + "/" + (mes + 1) + "/" + ano );
+
+        // Valor padrão
+        EditText act_text_valor = (EditText) findViewById(R.id.valor);
+        act_text_valor.setText( "0" );
     }
 
     public void selecionarData(View v){
@@ -96,7 +101,10 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             ano = year;
             mes = monthOfYear;
             dia = dayOfMonth;
-            dataGasto.setText(dia + "/" + (mes + 1) + "/" + ano);
+
+            EditText act_text_valor = (EditText) findViewById(R.id.data_text);
+            act_text_valor.setText( dia + "/" + (mes + 1) + "/" + ano );
+
         }
     };
 
@@ -200,8 +208,8 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             if(credito) {
 
                 // Altera título da activity
-                TextView myTitleText = (TextView) findViewById(R.id.mov_fin_act_title);
-                myTitleText.setText(R.string.editar_credito);
+                //TextView myTitleText = (TextView) findViewById(R.id.mov_fin_act_title);
+                //myTitleText.setText(R.string.editar_credito);
 
                 // Seta o valor
                 EditText act_text_valor = (EditText) findViewById(R.id.valor);
@@ -210,8 +218,8 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             } else {
 
                 // Altera título da activity
-                TextView myTitleText = (TextView) findViewById(R.id.mov_fin_act_title);
-                myTitleText.setText(R.string.editar_gasto);
+                //TextView myTitleText = (TextView) findViewById(R.id.mov_fin_act_title);
+                //myTitleText.setText(R.string.editar_gasto);
 
                 // Seta o valor
                 EditText act_text_valor = (EditText) findViewById(R.id.valor);
