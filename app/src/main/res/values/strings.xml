@@ -16,7 +16,7 @@
     <string name="novo_gasto_hint">Novo gasto</string>
     <string name="dialog_input_text_add_prefill"></string>
     <string name="quantia_hint">Quantia</string>
-    <string name="title_activity_novo_gasto">NovoGasto</string>
+    <string name="title_activity_novo_gasto">Novo Gasto</string>
 
     <string name="novo_gasto">Novo gasto</string>
     <string name="editar_gasto">Editar gasto</string>
