@@ -54,34 +54,38 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
      */
     private Long obj_id;
 
+    /**
+     * Toolbar
+     */
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimentacao_financeira);
 
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_mov_fin);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        startToolbar();
 
         // Verifica edição
         verificarEdicao(this);
 
-        //Variaveis do calendário
-        Calendar calendario = Calendar.getInstance();
-        dia = calendario.get(Calendar.DAY_OF_MONTH);
-        mes = calendario.get(Calendar.MONTH);
-        ano = calendario.get(Calendar.YEAR);
+        if( !fun_editar ) {
 
-        // Data padrão
-        EditText act_text_data = (EditText) findViewById(R.id.data_text);
-        act_text_data.setText( dia + "/" + (mes + 1) + "/" + ano );
+            //Variaveis do calendário
+            Calendar calendario = Calendar.getInstance();
+            dia = calendario.get(Calendar.DAY_OF_MONTH);
+            mes = calendario.get(Calendar.MONTH);
+            ano = calendario.get(Calendar.YEAR);
 
-        // Valor padrão
-        EditText act_text_valor = (EditText) findViewById(R.id.valor);
-        act_text_valor.setText( "0" );
+            // Data padrão
+            EditText act_text_data = (EditText) findViewById(R.id.data_text);
+            act_text_data.setText( dia + "/" + (mes + 1) + "/" + ano );
+
+            // Valor padrão
+            EditText act_text_valor = (EditText) findViewById(R.id.valor);
+            act_text_valor.setText( "0" );
+        }
     }
 
     public void selecionarData(View v){
@@ -235,5 +239,18 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             Button act_text_btn = (Button) findViewById(R.id.inserirGasto);
             act_text_btn.setText(R.string.salvar);
         }
+    }
+
+    /**
+     * Inicia a toolbar
+     */
+    private void startToolbar() {
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_mov_fin);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 }
