@@ -16,10 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MovimentacaoFinanceiraActivity"
             android:label="@string/title_activity_novo_gasto" >
+
+            <!-- Parent Activity -->
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"></meta-data>
+
         </activity>
+
     </application>
 
 </manifest>
