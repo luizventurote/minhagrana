@@ -250,7 +250,13 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
                     // Novo valor
                     EditText act_text_valor = (EditText) findViewById(R.id.valor);
-                    mov.setValor(Double.parseDouble(act_text_valor.getText().toString()));
+                    Double valor = Double.parseDouble(act_text_valor.getText().toString());
+
+                    if(!credito) {
+                        valor = valor * (-1);
+                    }
+
+                    mov.setValor(valor);
 
                     // Nova data
                     EditText act_text_data_text = (EditText) findViewById(R.id.data_text);
