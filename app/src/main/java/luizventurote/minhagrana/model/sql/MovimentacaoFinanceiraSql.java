@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import luizventurote.minhagrana.helper.Helper;
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 
@@ -36,8 +38,8 @@ public class MovimentacaoFinanceiraSql {
         ContentValues values = new ContentValues();
         values.put("descricao", mov.getDescricao());
         values.put("valor", mov.getValor());
-        values.put("data", Helper.formatDateToString( mov.getData() ));
-        values.put("data_system", Helper.formatDateToString( mov.getDataSystem() ));
+        values.put("data", Helper.formatDateToString(mov.getData()));
+        values.put("data_system", Helper.formatDateToString(mov.getDataSystem()));
 
         Long id = database.insert(tabela, null, values);
 
@@ -53,14 +55,20 @@ public class MovimentacaoFinanceiraSql {
      */
     public void atualizar(MovimentacaoFinanceira mov) {
 
-        ContentValues values = new ContentValues();
+        try {
 
-        long id = mov.getId();
-        values.put("descricao", mov.getDescricao());
-        values.put("valor", mov.getValor());
-        values.put("data", mov.getData().toString());
+            ContentValues values = new ContentValues();
 
-        database.update(tabela, values, "_id = ?", new String[]{String.valueOf(id)});
+            long id = mov.getId();
+            values.put("descricao", mov.getDescricao());
+            values.put("valor", mov.getValor());
+            values.put("data", Helper.formatDateToString(mov.getData()));
+
+            database.update(tabela, values, "_id = ?", new String[]{String.valueOf(id)});
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -98,7 +106,7 @@ public class MovimentacaoFinanceiraSql {
                     cursor.getLong(0),
                     cursor.getString(1),
                     cursor.getDouble(2),
-                    Helper.formatStringToDate( cursor.getString(4) )
+                    Helper.formatStringToDate( cursor.getString(3) )
                 );
 
             } while (cursor.moveToNext());

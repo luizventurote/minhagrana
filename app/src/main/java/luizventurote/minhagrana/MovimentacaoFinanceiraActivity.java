@@ -211,9 +211,9 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             // Altera as interfaces
             if(credito) {
 
-                // Altera título da activity
-                //TextView myTitleText = (TextView) findViewById(R.id.mov_fin_act_title);
-                //myTitleText.setText(R.string.editar_credito);
+                // Altera título da toolbar
+                toolbar.setTitle(R.string.editar_credito);
+                setSupportActionBar(toolbar);
 
                 // Seta o valor
                 EditText act_text_valor = (EditText) findViewById(R.id.valor);
@@ -221,9 +221,9 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
             } else {
 
-                // Altera título da activity
-                //TextView myTitleText = (TextView) findViewById(R.id.mov_fin_act_title);
-                //myTitleText.setText(R.string.editar_gasto);
+                // Altera título da toolbar
+                toolbar.setTitle(R.string.editar_gasto);
+                setSupportActionBar(toolbar);
 
                 // Seta o valor
                 EditText act_text_valor = (EditText) findViewById(R.id.valor);
@@ -235,9 +235,41 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             EditText act_text_desc = (EditText) findViewById(R.id.descricao);
             act_text_desc.setText(mov.getDescricao());
 
+            // Seta a data
+            EditText act_text_data = (EditText) findViewById(R.id.data_text);
+            act_text_data.setText( Helper.formatDateToStringWithSlash( mov.getData() ) );
+
+            ano = Helper.getDay( mov.getData() );
+            mes = Helper.getMonth( mov.getData() );
+            dia = Helper.getYear( mov.getData() );
+
             // Altera o texto do botão
             Button act_text_btn = (Button) findViewById(R.id.inserirGasto);
             act_text_btn.setText(R.string.salvar);
+
+            // Altera o onClick do botão
+            act_text_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // Nova descrição
+                    EditText act_text_desc = (EditText) findViewById(R.id.descricao);
+                    mov.setDescricao(act_text_desc.getText().toString());
+
+                    // Novo valor
+                    EditText act_text_valor = (EditText) findViewById(R.id.valor);
+                    mov.setValor(Double.parseDouble(act_text_valor.getText().toString()));
+
+                    // Nova data
+                    EditText act_text_data_text = (EditText) findViewById(R.id.data_text);
+                    mov.setData(Helper.formatStringToDateWithSlash(act_text_data_text.getText().toString()));
+
+                    // Atualiza o objeto
+                    MainController.atualizarMovimentacaoFinanceira(v.getContext(), mov);
+
+                    finish();
+                }
+            });
         }
     }
 
@@ -251,6 +283,5 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
     }
 }

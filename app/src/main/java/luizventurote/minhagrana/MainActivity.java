@@ -89,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
         this.showListView();
     }
 
+    protected void onResume() {
+        super.onResume();
+
+        // Atualiza a list view
+        this.showListView();
+    }
+
     /**
      * Show drawer with toolbar
      *
