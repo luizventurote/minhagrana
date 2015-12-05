@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Ano selecionado pelo usuário para exibição de dados
      */
-    private int ano_selecionado = 2015;
+    private int ano_selecionado = -1;
 
     /**
      * Floating action button
@@ -77,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.mes_selecionado = getMesSelecionado();
+        // Seleciona o mês vigente
+        getMesSelecionado();
+
+        // Seleciona o ano vigente
+        getAnoSelecionado();
 
         // Show Drawer
         this.showDrawer(savedInstanceState);
@@ -364,6 +368,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Busca o ano para exibição de dados
+     *
+     * @return int
+     */
+    private int getAnoSelecionado() {
+
+        if(this.ano_selecionado == -1) {
+
+            // Seleciona o mês atual
+            Date date= new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+
+            this.ano_selecionado = year;
+        }
+
+        return this.ano_selecionado;
+    }
+
+    /**
      * Atualiza o texto do item do menu da toolbar com o mês selecionado
      */
     public void atualizarMes() {
@@ -420,5 +445,46 @@ public class MainActivity extends AppCompatActivity {
                 bedMenuItem.setTitle(R.string.mes_dezembro);
                 break;
         }
+    }
+
+    /**
+     * Abre um dialog para selecionar o ano
+     *
+     * @param item
+     */
+    public void showSelectYearDialog(MenuItem item) {
+
+        int year = getAnoSelecionado();
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.informe_o_ano)
+                .inputType(InputType.TYPE_NUMBER_FLAG_SIGNED)
+                .input(R.string.ex_with_point + " " + Integer.toString(year),
+                        Integer.toString(year), new MaterialDialog.InputCallback() {
+
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+
+                        int selected_year = Integer.parseInt(input.toString());
+
+                        try {
+
+                            if (selected_year > 1999 && selected_year < 2200) {
+
+                                // Seta o novo ano
+                                ano_selecionado = selected_year;
+
+                                // Altera ano na toolbar
+                                MenuItem bedMenuItem = menu.findItem(R.id.action_ano_atual);
+                                bedMenuItem.setTitle(input.toString());
+
+                                // Atualiza os dados do ListView
+                                showListView();
+                            }
+                        } catch (NumberFormatException e) {
+                            showToast("O ano informado é inválido!");
+                        }
+                    }
+                }).show();
     }
 }

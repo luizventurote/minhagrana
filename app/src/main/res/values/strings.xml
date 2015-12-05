@@ -30,6 +30,9 @@
     <string name="gastei">Gastei!</string>
     <string name="salvar">Salvar</string>
 
+    <string name="informe_o_ano">Informe o ano</string>
+    <string name="ex_with_point">Ex.:</string>
+
     <string name="title_meses_dialog">Selecione o mês</string>
     <string name="choose">Selecionar</string>
 
