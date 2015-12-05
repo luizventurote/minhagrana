@@ -16,10 +16,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Calendar;
 import java.util.Date;
-
 import luizventurote.minhagrana.controller.MainController;
 import luizventurote.minhagrana.helper.Helper;
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
@@ -55,6 +53,12 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
      */
     private Long obj_id;
 
+
+    /**
+     * Toolbar
+     */
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,16 +71,27 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        startToolbar();
+
         // Verifica edição
         verificarEdicao(this);
 
-        //Variaveis do calendário
-        Calendar calendario = Calendar.getInstance();
-        dia = calendario.get(Calendar.DAY_OF_MONTH);
-        mes = calendario.get(Calendar.MONTH);
-        ano = calendario.get(Calendar.YEAR);
+        if( !fun_editar ) {
 
-        dataGasto = (Button) findViewById(R.id.data);
+            //Variaveis do calendário
+            Calendar calendario = Calendar.getInstance();
+            dia = calendario.get(Calendar.DAY_OF_MONTH);
+            mes = calendario.get(Calendar.MONTH);
+            ano = calendario.get(Calendar.YEAR);
+
+            // Data padrão
+            EditText act_text_data = (EditText) findViewById(R.id.data_text);
+            act_text_data.setText( dia + "/" + (mes + 1) + "/" + ano );
+
+            // Valor padrão
+            EditText act_text_valor = (EditText) findViewById(R.id.valor);
+            act_text_valor.setText( "0" );
+        }
     }
 
     public void selecionarData(View v){
@@ -96,7 +111,10 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             ano = year;
             mes = monthOfYear;
             dia = dayOfMonth;
-            dataGasto.setText(dia + "/" + (mes + 1) + "/" + ano);
+
+            EditText act_text_valor = (EditText) findViewById(R.id.data_text);
+            act_text_valor.setText( dia + "/" + (mes + 1) + "/" + ano );
+
         }
     };
 
@@ -129,13 +147,6 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         }
 
         Toast.makeText(this, "Gasto registrado", Toast.LENGTH_SHORT).show();
-
-
-
-
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
 
         finish();
     }
@@ -199,9 +210,9 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             // Altera as interfaces
             if(credito) {
 
-                // Altera título da activity
-                TextView myTitleText = (TextView) findViewById(R.id.mov_fin_act_title);
-                myTitleText.setText(R.string.editar_credito);
+                // Altera título da toolbar
+                toolbar.setTitle(R.string.editar_credito);
+                setSupportActionBar(toolbar);
 
                 // Seta o valor
                 EditText act_text_valor = (EditText) findViewById(R.id.valor);
@@ -209,9 +220,9 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
             } else {
 
-                // Altera título da activity
-                TextView myTitleText = (TextView) findViewById(R.id.mov_fin_act_title);
-                myTitleText.setText(R.string.editar_gasto);
+                // Altera título da toolbar
+                toolbar.setTitle(R.string.editar_gasto);
+                setSupportActionBar(toolbar);
 
                 // Seta o valor
                 EditText act_text_valor = (EditText) findViewById(R.id.valor);
@@ -223,9 +234,53 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             EditText act_text_desc = (EditText) findViewById(R.id.descricao);
             act_text_desc.setText(mov.getDescricao());
 
+            // Seta a data
+            EditText act_text_data = (EditText) findViewById(R.id.data_text);
+            act_text_data.setText( Helper.formatDateToStringWithSlash( mov.getData() ) );
+
+            ano = Helper.getDay( mov.getData() );
+            mes = Helper.getMonth( mov.getData() );
+            dia = Helper.getYear( mov.getData() );
+
             // Altera o texto do botão
             Button act_text_btn = (Button) findViewById(R.id.inserirGasto);
             act_text_btn.setText(R.string.salvar);
+
+            // Altera o onClick do botão
+            act_text_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // Nova descrição
+                    EditText act_text_desc = (EditText) findViewById(R.id.descricao);
+                    mov.setDescricao(act_text_desc.getText().toString());
+
+                    // Novo valor
+                    EditText act_text_valor = (EditText) findViewById(R.id.valor);
+                    mov.setValor(Double.parseDouble(act_text_valor.getText().toString()));
+
+                    // Nova data
+                    EditText act_text_data_text = (EditText) findViewById(R.id.data_text);
+                    mov.setData(Helper.formatStringToDateWithSlash(act_text_data_text.getText().toString()));
+
+                    // Atualiza o objeto
+                    MainController.atualizarMovimentacaoFinanceira(v.getContext(), mov);
+
+                    finish();
+                }
+            });
         }
+    }
+
+    /**
+     * Inicia a toolbar
+     */
+    private void startToolbar() {
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_mov_fin);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 }

@@ -69,17 +69,19 @@ public class testMainController extends AndroidTestCase {
         MovimentacaoFinanceira mov = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
 
         // Realiza a alteração
-        mov.setDescricao("New test description!");
+        mov.setDescricao("New description!");
         mov.setValor(59.90);
+        mov.setData( Helper.formatStringToDateWithSlash("21/02/2015") );
 
         // Salva as alterações no banco de dados
         MainController.atualizarMovimentacaoFinanceira(this.getContext(), mov);
 
         // Faz a busca do registro no banco de dados
-        mov = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
+        MovimentacaoFinanceira mov_result = MainController.buscarMovimentacaoFinanceira(this.getContext(), id);
 
-        assertEquals(59.90, mov.getValor());
-        assertEquals("New test description!", mov.getDescricao());
+        assertEquals(59.90, mov_result.getValor());
+        assertEquals(mov_result.getDescricao(), mov_result.getDescricao());
+        assertEquals(Helper.formatDateToString(mov.getData()), Helper.formatDateToString(mov_result.getData()));
     }
 
     /**

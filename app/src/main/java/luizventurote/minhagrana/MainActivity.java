@@ -91,6 +91,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected void onResume() {
+        super.onResume();
+
+        // Atualiza a list view
+        this.showListView();
+    }
+
     /**
      * Show drawer with toolbar
      *
@@ -148,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 // Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 // ShowDialogAddValue();
                 startActivity(new Intent(context, MovimentacaoFinanceiraActivity.class));
-                finish();
             }
         });
 
@@ -225,8 +231,8 @@ public class MainActivity extends AppCompatActivity {
 
             item.put("id", mov.getId());
             item.put("descricao", mov.getDescricao());
-            item.put("data", Helper.formatDateToString(mov.getData()).substring(8, 10));
-            item.put("valor", mov.getValor());
+            item.put("data", Integer.toString( Helper.getDay(mov.getData()) ));
+            item.put("valor", Helper.formatCurrency(mov.getValor()));
             gastos.add(item);
             item = new HashMap<String, Object>();
 
