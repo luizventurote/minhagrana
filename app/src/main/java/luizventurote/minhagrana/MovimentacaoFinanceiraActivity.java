@@ -3,7 +3,6 @@ package luizventurote.minhagrana;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -141,13 +140,6 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         }
 
         Toast.makeText(this, "Gasto registrado", Toast.LENGTH_SHORT).show();
-
-
-
-
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
 
         finish();
     }

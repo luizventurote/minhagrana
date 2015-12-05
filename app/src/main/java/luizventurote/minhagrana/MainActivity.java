@@ -153,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
                 // Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 // ShowDialogAddValue();
                 startActivity(new Intent(context, MovimentacaoFinanceiraActivity.class));
-                finish();
             }
         });
 
