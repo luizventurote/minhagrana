@@ -1,9 +1,11 @@
 package luizventurote.minhagrana.helper;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Helper {
 
@@ -62,7 +64,7 @@ public class Helper {
             int month = getMonth(obj_date);
             int year = getYear(obj_date);
 
-            Date new_date = formatStringToDate(year+"-"+month+"-"+day+" 00:00:00");
+            Date new_date = formatStringToDate(year + "-" + month + "-" + day + " 00:00:00");
 
             return new_date;
 
@@ -125,5 +127,27 @@ public class Helper {
         DateFormat df = new SimpleDateFormat("yyyy");
 
         return Integer.parseInt( df.format(date) );
+    }
+
+    /**
+     * Formatar moeda
+     *
+     * @param value
+     * @return String
+     */
+    public static String formatCurrency(Double value) {
+
+        Locale locale = new Locale("pt","br");
+
+        NumberFormat n = NumberFormat.getInstance(locale);
+        n.setMinimumFractionDigits(2);
+        n.setMaximumFractionDigits(2);
+
+        if(value < 0) {
+            value = value * -1;
+            return "-R$ "+n.format(value);
+        }
+
+        return "R$ "+n.format(value);
     }
 }
