@@ -9,28 +9,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
         android:layout_weight="1.0">
 
         <TextView
             android:id="@+id/descricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="left"
             android:textSize="20sp"/>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.0">
-
-        <TextView
-            android:id="@+id/valor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="20sp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -40,6 +28,20 @@
 
         <TextView
             android:id="@+id/data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:id="@+id/valor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

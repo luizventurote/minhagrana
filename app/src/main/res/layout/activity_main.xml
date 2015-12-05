@@ -43,27 +43,14 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
                         android:layout_weight="1.0">
 
                         <TextView
                             android:text="Descrição"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textSize="21sp"
-                            android:textStyle="bold"/>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.0">
-
-                        <TextView
-                            android:text="Gasto"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:textSize="21sp"
                             android:textStyle="bold"/>
                     </RelativeLayout>
@@ -75,6 +62,20 @@
 
                         <TextView
                             android:text="Dia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textSize="21sp"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0">
+
+                        <TextView
+                            android:text="Valor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
