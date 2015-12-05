@@ -143,11 +143,17 @@ public class Helper {
         n.setMinimumFractionDigits(2);
         n.setMaximumFractionDigits(2);
 
-        if(value < 0) {
+        //if(value < 0) {
             value = value * -1;
             return "-R$ "+n.format(value);
-        }
+        //}
 
-        return "R$ "+n.format(value);
+        //return "R$ "+n.format(value);
+    }
+
+    public static Double formatCurrencyInverted(String value){
+
+        return Double.parseDouble(value.substring(5).trim().replace(',','.'));
+
     }
 }

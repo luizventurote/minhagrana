@@ -440,7 +440,7 @@ public class MainActivity extends AppCompatActivity {
 
             item = this.gastos.get(j);
 
-            total +=  Double.parseDouble(item.get("valor").toString().trim());
+            total += Helper.formatCurrencyInverted(item.get("valor").toString());
 
             j++;
         }
