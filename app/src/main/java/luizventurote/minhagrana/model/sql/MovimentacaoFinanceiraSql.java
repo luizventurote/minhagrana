@@ -170,7 +170,7 @@ public class MovimentacaoFinanceiraSql {
 
         // Cursor
         Cursor cursor = database.query("movimentacao_financeira", null, "data BETWEEN ? AND ?", new String[] {
-                minDate + " 00:00:00", maxDate + " 23:59:59" }, null, null, null, null);
+                minDate + " 00:00:00", maxDate + " 23:59:59" }, null, null, "data DESC", null);
 
         // Verifica se tem algum resultado
         if(cursor.getCount() > 0) {
