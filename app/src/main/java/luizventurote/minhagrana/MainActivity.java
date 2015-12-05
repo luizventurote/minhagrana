@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -129,11 +128,14 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = null;
 
                             if (drawerItem.getIdentifier() == 1) {
-                                Log.d("LOG", "Click item 1");
-                            } else if (drawerItem.getIdentifier() == 2) {
-                                Log.d("LOG", "Click item 2");
-                            }
 
+                            } else if (drawerItem.getIdentifier() == 2) {
+
+                                // Abre activity de configurações
+                                startActivity(new Intent(context, ConfigActivity.class));
+
+                                finish();
+                            }
                         }
 
                         return false;
