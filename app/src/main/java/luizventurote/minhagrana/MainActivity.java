@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
             item.put("id", mov.getId());
             item.put("descricao", mov.getDescricao());
-            item.put("data", Helper.formatDateToString(mov.getData()).substring(8, 10));
+            item.put("data", Integer.toString( Helper.getDay(mov.getData()) ));
             item.put("valor", mov.getValor());
             gastos.add(item);
             item = new HashMap<String, Object>();

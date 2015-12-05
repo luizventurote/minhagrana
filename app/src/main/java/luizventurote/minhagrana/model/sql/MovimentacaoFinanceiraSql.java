@@ -183,7 +183,7 @@ public class MovimentacaoFinanceiraSql {
                     cursor.getLong(0),
                     cursor.getString(1),
                     cursor.getDouble(2),
-                    Helper.formatStringToDate(cursor.getString(4))
+                    Helper.formatStringToDate( cursor.getString(3) )
                 );
 
                 list.add(mov);
