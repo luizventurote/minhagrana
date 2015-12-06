@@ -1,5 +1,6 @@
 package luizventurote.minhagrana;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -14,10 +15,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.List;
+
+import luizventurote.minhagrana.controller.MainController;
+import luizventurote.minhagrana.helper.Helper;
+import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 
 public class GoogleDrive extends GoogleDriveBaseActivity {
 
     private static final String TAG = "GoogleDrive";
+
+    private Context context = this;
 
     @Override
     public void onConnected(Bundle connectionHint) {
@@ -44,15 +52,56 @@ public class GoogleDrive extends GoogleDriveBaseActivity {
                             // write content to DriveContents
                             OutputStream outputStream = driveContents.getOutputStream();
                             Writer writer = new OutputStreamWriter(outputStream);
+
+                            int year = 2015;
+
                             try {
-                                writer.write("Hello World!");
+
+                                // Verifica o ano selecionado
+                                if( getIntent().hasExtra("year") ) {
+
+                                    Bundle extras = getIntent().getExtras();
+
+                                    year = extras.getInt("year");
+                                }
+
+                                // CSV Header
+                                writer.write("descricao,data,valor\n");
+
+                                // Datas
+                                String minDate = Integer.toString(year)+"-01-01";
+                                String maxDate = Integer.toString(year)+"-12-31";
+
+                                // Busca movimentações
+                                List<MovimentacaoFinanceira> mov_list = MainController.buscarEntreDatas(context, minDate, maxDate);
+
+                                // Model de movimentação financeira
+                                MovimentacaoFinanceira mov = null;
+
+                                // Loop de gastos
+                                int j = 0; while (mov_list.size() > j) {
+
+                                    // Load model
+                                    mov = mov_list.get(j);
+
+                                    String data = Helper.formatDateToStringWithSlash(mov.getData());
+                                    String desc = mov.getDescricao();
+                                    String valor = Helper.formatCurrency(mov.getValor()).replace(".","").replace(",",".");
+
+                                    writer.write(desc + "," + data + "," + valor + "\n");
+
+                                    j++;
+
+                                }
+
                                 writer.close();
+
                             } catch (IOException e) {
                                 Log.e(TAG, e.getMessage());
                             }
 
                             MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
-                                    .setTitle("New file.csv")
+                                    .setTitle("minha-grana-em-"+Integer.toString(year)+".csv")
                                     .setMimeType("text/csv")
                                     .setStarred(true).build();
 
@@ -78,5 +127,4 @@ public class GoogleDrive extends GoogleDriveBaseActivity {
                     finish();
                 }
             };
-
 }

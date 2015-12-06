@@ -5,16 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class ConfigActivity extends AppCompatActivity {
 
@@ -37,6 +43,11 @@ public class ConfigActivity extends AppCompatActivity {
      * Menu toolbar
      */
     private Menu menu;
+
+    /**
+     * Ano selecionado pelo usuário para exibição de dados
+     */
+    private int ano_selecionado = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +138,75 @@ public class ConfigActivity extends AppCompatActivity {
      */
     public void saveGoogleDrive(View v) {
 
-        startActivity(new Intent(context, GoogleDrive.class));
+        showSelectYearDialog();
+
+    }
+
+    /**
+     * Abre um dialog para selecionar o ano
+     */
+    public void showSelectYearDialog() {
+
+        int year = getAnoSelecionado();
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.informe_o_ano)
+                .inputType(InputType.TYPE_NUMBER_FLAG_SIGNED)
+                .input(R.string.ex_with_point + " " + Integer.toString(year),
+                        Integer.toString(year), new MaterialDialog.InputCallback() {
+
+                            @Override
+                            public void onInput(MaterialDialog dialog, CharSequence input) {
+
+                                int selected_year = Integer.parseInt(input.toString());
+
+                                try {
+
+                                    if (selected_year > 1999 && selected_year < 2200) {
+
+                                        // Seta o novo ano
+                                        ano_selecionado = selected_year;
+
+                                        // Abre activity
+                                        Intent mIntent = new Intent(context, GoogleDrive.class);
+                                        Bundle mBundle = new Bundle();
+                                        mBundle.putInt("year", ano_selecionado);
+                                        mIntent.putExtras(mBundle);
+                                        startActivity(mIntent);
+                                    }
+                                } catch (NumberFormatException e) {
+                                    showMessage("O ano informado é inválido!");
+                                }
+                            }
+                        }).show();
+
+    }
+
+    /**
+     * Busca o ano para exibição de dados
+     *
+     * @return int
+     */
+    private int getAnoSelecionado() {
+
+        if(this.ano_selecionado == -1) {
+
+            // Seleciona o mês atual
+            Date date= new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+
+            this.ano_selecionado = year;
+        }
+
+        return this.ano_selecionado;
+    }
+
+    /**
+     * Shows a toast message.
+     */
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
