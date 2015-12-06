@@ -8,8 +8,8 @@
     <string name="drawer_item_home">Minha carteira</string>
     <string name="drawer_item_settings">Configurações</string>
 
-    <string name="menu_float_add">Adicionar</string>
-    <string name="menu_float_remove">Remover</string>
+    <string name="menu_float_add">Gastei!</string>
+    <string name="menu_float_remove">Adicionar crédito</string>
 
     <string name="dialog_input_text_add_title">Adicionar</string>
     <string name="dialog_input_text_add"></string>
