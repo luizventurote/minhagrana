@@ -58,5 +58,6 @@
     <string name="mes_novembro">Novembro</string>
     <string name="mes_dezembro">Dezembro</string>
     <string name="title_activity_config">Configurações</string>
+    <string name="title_activity_google_drive">GoogleDrive</string>
 
 </resources>

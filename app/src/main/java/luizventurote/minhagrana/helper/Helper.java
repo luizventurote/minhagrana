@@ -1,5 +1,10 @@
 package luizventurote.minhagrana.helper;
 
+import android.os.Environment;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -155,5 +160,33 @@ public class Helper {
 
         return Double.parseDouble(value.substring(5).trim().replace(',','.'));
 
+    }
+
+    /**
+     * Cria um arquivo
+     *
+     * @param sFileName
+     * @param sBody
+     */
+    public void createFile(String sFileName, String sBody) {
+
+        try {
+
+            File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+
+            File gpxfile = new File(root, sFileName);
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append(sBody);
+            writer.flush();
+            writer.close();
+
+        } catch(IOException e) {
+
+            e.printStackTrace();
+        }
     }
 }

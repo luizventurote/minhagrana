@@ -24,6 +24,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Exportar dados"
+                    android:id="@+id/textView"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="25dp" />
+
+                <Button
+                    android:id="@+id/save_google_drive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="saveGoogleDrive"
+                    android:layout_marginTop="10dp"
+                    android:text="Exportar CSV para Google Drive"
+                    android:layout_marginLeft="25dp" />
+
+            </LinearLayout>
+
         </FrameLayout>
 
     </FrameLayout>

@@ -119,4 +119,14 @@ public class ConfigActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Exporta dados para o Google Drive
+     *
+     * @param v
+     */
+    public void saveGoogleDrive(View v) {
+
+        startActivity(new Intent(context, GoogleDrive.class));
+    }
 }
