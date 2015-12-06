@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Show ListView
         this.showListView();
+
     }
 
     protected void onResume() {
@@ -180,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
 
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(chamaAtividades(this));
+
+        //Exibir total gasto
+        this.exibirTotalGasto();
     }
 
     public AdapterView.OnItemClickListener chamaAtividades(final Context context){
@@ -420,5 +425,27 @@ public class MainActivity extends AppCompatActivity {
                 bedMenuItem.setTitle(R.string.mes_dezembro);
                 break;
         }
+    }
+
+    public void exibirTotalGasto(){
+
+        Map<String, Object> item = new HashMap<String, Object>();
+
+       // MovimentacaoFinanceira mov = null;
+        Double total = 0.0;
+
+        // Loop de gastos
+        int j = 0;
+        while (this.gastos.size() > j) {
+
+            item = this.gastos.get(j);
+
+            total += Helper.formatCurrencyInverted(item.get("valor").toString());
+
+            j++;
+        }
+
+        TextView totalGasto = (TextView) findViewById(R.id.totalGasto);
+        totalGasto.setText("R$ "+String.valueOf(total));
     }
 }
