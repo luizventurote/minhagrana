@@ -148,18 +148,45 @@ public class Helper {
         n.setMinimumFractionDigits(2);
         n.setMaximumFractionDigits(2);
 
-        //if(value < 0) {
+        if(value < 0) {
             value = value * -1;
             return "-R$ "+n.format(value);
-        //}
+        }
 
-        //return "R$ "+n.format(value);
+        return "R$ "+n.format(value);
     }
 
-    public static Double formatCurrencyInverted(String value){
+    /**
+     * Formata uma string moeda para double
+     *
+     * @param text_value
+     * @return
+     */
+    public static Double formatCurrencyInverted(String text_value) {
 
-        return Double.parseDouble(value.substring(5).trim().replace(',','.'));
+        boolean negative_value = false;
 
+        String objective = text_value.replace(".","");
+
+        if(objective.contains("-")) {
+            negative_value = true;
+        }
+
+        objective = objective.replace("-","");
+
+        objective = objective.replace("R$","");
+
+        objective = objective.replace(",",".");
+
+        objective = objective.replace(" ","");
+
+        Double result_obj = Double.parseDouble(objective);
+
+        if(negative_value) {
+            result_obj = result_obj * (-1);
+        }
+
+        return result_obj;
     }
 
     /**

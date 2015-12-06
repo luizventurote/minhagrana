@@ -1,6 +1,7 @@
 package luizventurote.minhagrana.helper;
 
 import android.test.AndroidTestCase;
+
 import java.util.Date;
 
 public class testHelper extends AndroidTestCase {
@@ -28,5 +29,34 @@ public class testHelper extends AndroidTestCase {
         Date obj_data = Helper.formatStringToDateWithSlash(data);
 
         assertEquals(data, Helper.formatDateToStringWithSlash(obj_data));
+    }
+
+    /**
+     * Testa a formatação de moedas
+     */
+    public void test_formatCurrency() {
+
+        // Negative
+        Double negative_value = -5000000.99;
+        String negative_result = Helper.formatCurrency(negative_value);
+
+        // Positive
+        Double positive_value = 1000000.99;
+        String positive_result = Helper.formatCurrency(positive_value);
+
+        assertEquals("-R$ 5.000.000,99", negative_result);
+        assertEquals("R$ 1.000.000,99", positive_result);
+    }
+
+    /**
+     * Testa formatação de moeda invertido
+     */
+    public void test_formatCurrencyInverted() {
+
+        String value = "-R$ 5.000.000,99";
+
+        Double result = Helper.formatCurrencyInverted(value);
+
+        assertEquals(-5000000.99, result);
     }
 }
