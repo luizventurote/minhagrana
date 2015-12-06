@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +31,12 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
     private int dia, mes, ano;
     private Button dataGasto;
     private EditText valor;
+    private Toast mToast;
+
+    /**
+     * Context
+     */
+    private Context context = this;
 
     /**
      * Valor do campo de descrição
@@ -139,7 +149,7 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         } else {
             valorD = (-1) * Double.parseDouble(this.valor.getText().toString().trim());
         }
-        
+
         if(fun_editar) {
 
             // Seta um novo valor para a descrição
@@ -162,7 +172,7 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-      //  getMenuInflater().inflate(R.menu.menu_gasto, menu);
+        getMenuInflater().inflate(R.menu.menu_novo_gasto, menu);
         return true;
     }
 
@@ -174,7 +184,7 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete_mov) {
             return true;
         }
 
@@ -208,7 +218,7 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         // Ações para edição
         if(fun_editar) {
 
-            Toast.makeText(this, "Objeto carregado: " + mov.getDescricao(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Objeto carregado: " + mov.getDescricao(), Toast.LENGTH_SHORT).show();
 
             // Verifica se é crédito ou gasto
             if(mov.getValor() > 0) {
@@ -314,5 +324,43 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
                 setSupportActionBar(toolbar);
             }
         }
+    }
+
+    /**
+     * Deleta uma movimentação
+     */
+    public void deletarMovimentacao(MenuItem item) {
+
+        new MaterialDialog.Builder(this)
+                .content("Você tem certeza que deseja deletar esse registro?")
+                .positiveText("Confirmar")
+                .negativeText("Cancelar")
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                        if (which.name().equals("POSITIVE")) {
+
+                            MainController.deletarMovimentacaoFinanceira(context, mov);
+
+                            showToast("Registro deletado!");
+
+                            finish();
+
+                        }
+
+                        //showToast(which.name() + "!");
+                    }
+                })
+                .show();
+    }
+
+    private void showToast(String message) {
+        if (mToast != null) {
+            mToast.cancel();
+            mToast = null;
+        }
+        mToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        mToast.show();
     }
 }
