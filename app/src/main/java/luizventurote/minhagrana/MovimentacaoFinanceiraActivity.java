@@ -3,7 +3,6 @@ package luizventurote.minhagrana;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Calendar;
 import java.util.Date;
+
 import luizventurote.minhagrana.controller.MainController;
 import luizventurote.minhagrana.helper.Helper;
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
@@ -76,6 +76,9 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         // Verifica edição
         verificarEdicao(this);
 
+        // Verifica inserção de crédito
+        verificarInsercaoCredito();
+
         if( !fun_editar ) {
 
             //Variaveis do calendário
@@ -130,8 +133,13 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
         data = Helper.formatStringToDate(d);
         this.descricao = (EditText) findViewById(R.id.descricao);
         this.valor = (EditText) findViewById(R.id.valor);
-        valorD = (-1) * Double.parseDouble(this.valor.getText().toString().trim());
 
+        if(this.credito) {
+            valorD = Double.parseDouble(this.valor.getText().toString().trim());
+        } else {
+            valorD = (-1) * Double.parseDouble(this.valor.getText().toString().trim());
+        }
+        
         if(fun_editar) {
 
             // Seta um novo valor para a descrição
@@ -288,5 +296,23 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    private void verificarInsercaoCredito() {
+
+
+        if( getIntent().hasExtra("credito") ) {
+
+            Bundle extras = getIntent().getExtras();
+
+            this.credito = extras.getBoolean("credito");
+
+            if(this.credito) {
+
+                // Altera título da toolbar
+                toolbar.setTitle(R.string.editar_credito);
+                setSupportActionBar(toolbar);
+            }
+        }
     }
 }

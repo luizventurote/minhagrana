@@ -167,7 +167,13 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.action_b).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
+
+                // Abre a activity de inserir crédito
+                Intent mIntent = new Intent(context, MovimentacaoFinanceiraActivity.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putBoolean("credito", true);
+                mIntent.putExtras(mBundle);
+                startActivity(mIntent);
             }
         });
     }
