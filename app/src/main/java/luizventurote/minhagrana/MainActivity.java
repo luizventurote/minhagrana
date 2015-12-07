@@ -29,6 +29,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -507,7 +509,8 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> item = new HashMap<String, Object>();
 
        // MovimentacaoFinanceira mov = null;
-        Double total = 0.0;
+        Double totalG = 0.0; //represento o gasto
+        Double totalC = 0.0; //repressenta o crédito
 
         // Loop de gastos
         int j = 0;
@@ -515,12 +518,18 @@ public class MainActivity extends AppCompatActivity {
 
             item = this.gastos.get(j);
 
-            total += Helper.formatCurrencyInverted(item.get("valor").toString());
+            if(Helper.formatCurrencyInverted(item.get("valor").toString()) < 0)
+                 totalG += Helper.formatCurrencyInverted(item.get("valor").toString());
+
+            totalC += Helper.formatCurrencyInverted(item.get("valor").toString());
 
             j++;
         }
 
         TextView totalGasto = (TextView) findViewById(R.id.totalGasto);
-        totalGasto.setText("R$ "+String.valueOf(total));
+        totalGasto.setText("R$ "+String.valueOf(totalG));
+
+        TextView totalCredito = (TextView) findViewById(R.id.totalCredito);
+        totalCredito.setText("R$ "+String.valueOf(totalC));
     }
 }
