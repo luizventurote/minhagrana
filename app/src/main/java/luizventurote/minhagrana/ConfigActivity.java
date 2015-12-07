@@ -75,6 +75,7 @@ public class ConfigActivity extends AppCompatActivity {
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_money).withIdentifier(1),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_report).withIcon(FontAwesome.Icon.faw_bar_chart).withIdentifier(3),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(2)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -95,6 +96,10 @@ public class ConfigActivity extends AppCompatActivity {
 
                             } else if (drawerItem.getIdentifier() == 2) {
 
+                            } else if (drawerItem.getIdentifier() == 3) {
+
+                                // Abre activity de relatórios
+                                startActivity(new Intent(context, RelatorioActivity.class));
                             }
                         }
 

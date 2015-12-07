@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_money).withIdentifier(1),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_report).withIcon(FontAwesome.Icon.faw_bar_chart).withIdentifier(3),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(2)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -140,6 +141,15 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(new Intent(context, ConfigActivity.class));
 
                                 finish();
+
+                            }  else if (drawerItem.getIdentifier() == 3) {
+
+                                // Abre activity de relatórios
+                                Intent mIntent = new Intent(context, RelatorioActivity.class);
+                                Bundle mBundle = new Bundle();
+                                mBundle.putInt("year", ano_selecionado);
+                                mIntent.putExtras(mBundle);
+                                startActivity(mIntent);
                             }
                         }
 
