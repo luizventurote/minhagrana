@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -30,8 +29,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -542,7 +539,7 @@ public class MainActivity extends AppCompatActivity {
         TextView totalCredito = (TextView) findViewById(R.id.totalCredito);
         totalCredito.setText("R$ " + String.valueOf(totalC));
 
-        changeColorAplication(totalC);
+        //changeColorAplication(totalC);
     }
 
     //Altera a cor da aplicação de acordo com o saldo
