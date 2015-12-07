@@ -1,87 +1,91 @@
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_mov_fin"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:elevation="4dp" />
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_below="@id/toolbar_mov_fin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:orientation="vertical">
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/descricao"
-            app:met_floatingLabel="highlight"
-            android:layout_marginTop="10dp"
-            app:met_floatingLabelTextSize="25sp"
-            android:textSize="25sp"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_mov_fin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/descricao"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/valor"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelTextSize="25sp"
-            android:layout_marginTop="20dp"
-            android:textSize="25sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/valor"
-            android:inputType="numberDecimal"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:elevation="4dp" />
 
         <LinearLayout
-            android:layout_below="@id/valor"
+            android:layout_below="@id/toolbar_mov_fin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:orientation="vertical">
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/data_text"
+                android:id="@+id/descricao"
                 app:met_floatingLabel="highlight"
-                android:editable="false"
+                android:layout_marginTop="10dp"
                 app:met_floatingLabelTextSize="25sp"
                 android:textSize="25sp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/data"/>
+                android:hint="@string/descricao"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/valor"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextSize="25sp"
+                android:layout_marginTop="20dp"
+                android:textSize="25sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/valor"
+                android:inputType="numberDecimal"/>
+
+            <LinearLayout
+                android:layout_below="@id/valor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/data_text"
+                    app:met_floatingLabel="highlight"
+                    android:editable="false"
+                    app:met_floatingLabelTextSize="25sp"
+                    android:textSize="25sp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/data"/>
+
+                <Button
+                    android:id="@+id/data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="selecionarData"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/selecione"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
 
             <Button
-                android:id="@+id/data"
-                android:layout_width="wrap_content"
+                android:id="@+id/inserirGasto"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="selecionarData"
-                android:layout_marginTop="25dp"
-                android:text="@string/selecione"
-                android:layout_gravity="center"/>
+                android:layout_marginTop="20dp"
+                android:text="@string/adicionar"
+                android:textSize="20sp"
+                android:onClick="inserirMovimentacaoFinanceira"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/inserirGasto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/gastei"
-            android:textSize="20sp"
-            android:onClick="inserirMovimentacaoFinanceira"/>
-
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

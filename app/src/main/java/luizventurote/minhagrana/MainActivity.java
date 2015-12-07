@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private Menu menu;
     private Toolbar toolbar;
 
-
     /**
      * Mês selecionado pelo usuário para exibição de dados
      */
@@ -180,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 mBundle.putBoolean("credito", true);
                 mIntent.putExtras(mBundle);
                 startActivity(mIntent);
+
             }
         });
     }
