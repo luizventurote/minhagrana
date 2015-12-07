@@ -54,7 +54,7 @@
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:id="@+id/creditos"
+                            android:id="@+id/totalCredito"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
