@@ -1,6 +1,7 @@
 package luizventurote.minhagrana.helper;
 
 import android.os.Environment;
+import android.widget.Toolbar;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,6 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import luizventurote.minhagrana.R;
 
 public class Helper {
 
@@ -166,7 +169,7 @@ public class Helper {
 
         boolean negative_value = false;
 
-        String objective = text_value.replace(".","");
+        String objective = text_value.replace(".", "");
 
         if(objective.contains("-")) {
             negative_value = true;
@@ -216,4 +219,5 @@ public class Helper {
             e.printStackTrace();
         }
     }
+
 }
