@@ -3,6 +3,7 @@ package luizventurote.minhagrana;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     static SQLiteDatabase database;
     private Toast mToast;
     private Menu menu;
+    private Toolbar toolbar;
+
 
     /**
      * Mês selecionado pelo usuário para exibição de dados
@@ -71,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * ListView
      */
-    private ListView mainListView ;
-    private ArrayAdapter<String> listAdapter ;
+    private ListView mainListView;
+    private ArrayAdapter<String> listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void showListView() {
 
-    
+
         String[] de = {"descricao", "data", "valor"};
         int[] para = {R.id.descricao, R.id.data, R.id.valor};
 
@@ -201,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
         this.exibirTotalGasto();
     }
 
-    public AdapterView.OnItemClickListener chamaAtividades(final Context context){
-        return(new AdapterView.OnItemClickListener() {
+    public AdapterView.OnItemClickListener chamaAtividades(final Context context) {
+        return (new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> av, View v, int position, long id) {
 
@@ -232,20 +236,21 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> item = new HashMap<String, Object>();
 
         // Busca uma lista de movimentações financeiras
-        List<MovimentacaoFinanceira> lista_gastos = MainController.buscarPorMes(this, ano_selecionado, mes_selecionado+1);
+        List<MovimentacaoFinanceira> lista_gastos = MainController.buscarPorMes(this, ano_selecionado, mes_selecionado + 1);
 
         // Model de movimentação financeira
         MovimentacaoFinanceira mov = null;
 
         // Loop de gastos
-        int j = 0; while (lista_gastos.size() > j) {
+        int j = 0;
+        while (lista_gastos.size() > j) {
 
             // Load model
             mov = lista_gastos.get(j);
 
             item.put("id", mov.getId());
             item.put("descricao", mov.getDescricao());
-            item.put("data", Integer.toString( Helper.getDay(mov.getData()) ));
+            item.put("data", Integer.toString(Helper.getDay(mov.getData())));
             item.put("valor", Helper.formatCurrency(mov.getValor()));
             gastos.add(item);
             item = new HashMap<String, Object>();
@@ -368,10 +373,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private int getMesSelecionado() {
 
-        if(this.mes_selecionado == -1) {
+        if (this.mes_selecionado == -1) {
 
             // Seleciona o mês atual
-            Date date= new Date();
+            Date date = new Date();
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             int month = cal.get(Calendar.MONTH);
@@ -389,10 +394,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private int getAnoSelecionado() {
 
-        if(this.ano_selecionado == -1) {
+        if (this.ano_selecionado == -1) {
 
             // Seleciona o mês atual
-            Date date= new Date();
+            Date date = new Date();
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             int year = cal.get(Calendar.YEAR);
@@ -504,11 +509,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void exibirTotalGasto(){
+    /**
+     * Realiza a soma e exibe o taltal de creditos e gastos
+     */
+    public void exibirTotalGasto() {
 
         Map<String, Object> item = new HashMap<String, Object>();
 
-       // MovimentacaoFinanceira mov = null;
+        // MovimentacaoFinanceira mov = null;
         Double totalG = 0.0; //represento o gasto
         Double totalC = 0.0; //repressenta o crédito
 
@@ -518,18 +526,37 @@ public class MainActivity extends AppCompatActivity {
 
             item = this.gastos.get(j);
 
-            if(Helper.formatCurrencyInverted(item.get("valor").toString()) < 0)
-                 totalG += Helper.formatCurrencyInverted(item.get("valor").toString());
+            //soma o gasto
+            if (Helper.formatCurrencyInverted(item.get("valor").toString()) < 0)
+                totalG += Helper.formatCurrencyInverted(item.get("valor").toString());
 
+            //realiza o credito
             totalC += Helper.formatCurrencyInverted(item.get("valor").toString());
 
             j++;
         }
 
         TextView totalGasto = (TextView) findViewById(R.id.totalGasto);
-        totalGasto.setText("R$ "+String.valueOf(totalG));
+        totalGasto.setText("R$ " + String.valueOf(totalG));
 
         TextView totalCredito = (TextView) findViewById(R.id.totalCredito);
-        totalCredito.setText("R$ "+String.valueOf(totalC));
+        totalCredito.setText("R$ " + String.valueOf(totalC));
+
+        changeColorAplication(totalC);
     }
+
+    //Altera a cor da aplicação de acordo com o saldo
+    public void changeColorAplication(Double credito) {
+
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        if(credito > 0)
+            this.toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        else if( credito == 0)
+            this.toolbar.setBackgroundColor(Color.BLACK);
+        else if(credito < 0)
+            this.toolbar.setBackgroundColor(Color.RED);
+
+    }
+
 }
