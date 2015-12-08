@@ -166,4 +166,21 @@ public class testMainController extends AndroidTestCase {
             assertTrue( list.size() == 1 );
         }
     }
+
+    /**
+     * Testa o retorno do saldo do mês
+     */
+    public void test_buscarSaldoMensal() {
+
+        // Ano
+        int ano = 2015;
+
+        // Mês
+        int mes = 2;
+
+        Double result = MainController.buscarSaldoMensal(this.getContext(), ano, mes);
+
+        Log.d("TEST_SALDO_MENSAL", Double.toString(result));
+
+    }
 }

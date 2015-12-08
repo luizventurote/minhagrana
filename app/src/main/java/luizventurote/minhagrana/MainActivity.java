@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -30,8 +29,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -123,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_money).withIdentifier(1),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_report).withIcon(FontAwesome.Icon.faw_bar_chart).withIdentifier(3),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(2)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -142,6 +140,15 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(new Intent(context, ConfigActivity.class));
 
                                 finish();
+
+                            }  else if (drawerItem.getIdentifier() == 3) {
+
+                                // Abre activity de relatórios
+                                Intent mIntent = new Intent(context, RelatorioActivity.class);
+                                Bundle mBundle = new Bundle();
+                                mBundle.putInt("year", ano_selecionado);
+                                mIntent.putExtras(mBundle);
+                                startActivity(mIntent);
                             }
                         }
 
@@ -542,7 +549,7 @@ public class MainActivity extends AppCompatActivity {
         TextView totalCredito = (TextView) findViewById(R.id.totalCredito);
         totalCredito.setText("R$ " + String.valueOf(totalC));
 
-        changeColorAplication(totalC);
+        //changeColorAplication(totalC);
     }
 
     //Altera a cor da aplicação de acordo com o saldo

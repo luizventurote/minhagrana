@@ -34,9 +34,13 @@
             android:label="@string/title_activity_config" >
         </activity>
         <activity
-            android:theme="@style/Theme.Transparent"
             android:name=".GoogleDrive"
-            android:label="@string/title_activity_google_drive" >
+            android:label="@string/title_activity_google_drive"
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <activity
+            android:name=".RelatorioActivity"
+            android:label="@string/title_activity_relatorio" >
         </activity>
     </application>
 

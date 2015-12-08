@@ -1,8 +1,10 @@
 package luizventurote.minhagrana.controller;
 
 import android.content.Context;
+
 import java.util.Date;
 import java.util.List;
+
 import luizventurote.minhagrana.helper.Database;
 import luizventurote.minhagrana.model.MovimentacaoFinanceira;
 import luizventurote.minhagrana.model.sql.MovimentacaoFinanceiraSql;
@@ -152,5 +154,37 @@ public class MainController {
         db.close();
 
         return list;
+    }
+
+    /**
+     * Retorna o saldo do mês
+     *
+     * @param context
+     * @param ano
+     * @param mes
+     * @return
+     */
+    public static Double buscarSaldoMensal(Context context, int ano, int mes) {
+
+        List<MovimentacaoFinanceira> mov_list = buscarPorMes(context, ano, mes);
+
+        // Model de movimentação financeira
+        MovimentacaoFinanceira mov = null;
+
+        Double result = 0.00;
+
+        // Loop de gastos
+        int j = 0; while (mov_list.size() > j) {
+
+            // Load model
+            mov = mov_list.get(j);
+
+            result = result + mov.getValor();
+
+            j++;
+
+        }
+
+        return result;
     }
 }
