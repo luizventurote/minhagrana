@@ -100,10 +100,6 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             // Data padrão
             EditText act_text_data = (EditText) findViewById(R.id.data_text);
             act_text_data.setText( dia + "/" + (mes + 1) + "/" + ano );
-
-            // Valor padrão
-            EditText act_text_valor = (EditText) findViewById(R.id.valor);
-            act_text_valor.setText( "0" );
         }
     }
 
@@ -172,7 +168,11 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_novo_gasto, menu);
+
+        if(fun_editar) {
+            getMenuInflater().inflate(R.menu.menu_novo_gasto, menu);
+        }
+
         return true;
     }
 
@@ -320,8 +320,12 @@ public class MovimentacaoFinanceiraActivity extends AppCompatActivity {
             if(this.credito) {
 
                 // Altera título da toolbar
-                toolbar.setTitle(R.string.editar_credito);
+                toolbar.setTitle(R.string.add_credito);
                 setSupportActionBar(toolbar);
+
+                // Altera o texto do botão
+                Button act_text_btn = (Button) findViewById(R.id.inserirGasto);
+                act_text_btn.setText(R.string.salvar);
             }
         }
     }

@@ -22,6 +22,7 @@
     <string name="novo_gasto">Novo gasto</string>
     <string name="editar_gasto">Editar gasto</string>
     <string name="editar_credito">Editar crédito</string>
+    <string name="add_credito">Adicionar crédito</string>
     <string name="categoria">Categoria</string>
     <string name="valor">Valor</string>
     <string name="data">Data</string>

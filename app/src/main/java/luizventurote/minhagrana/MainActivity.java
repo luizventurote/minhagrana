@@ -337,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
 
-                        showToast(which + ": " + text);
+                        // showToast(which + ": " + text);
 
                         // Seta o mês selecionado
                         mes_selecionado = which;
