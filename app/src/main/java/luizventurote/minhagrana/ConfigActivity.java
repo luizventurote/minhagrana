@@ -209,4 +209,11 @@ public class ConfigActivity extends AppCompatActivity {
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
+    protected void onResume() {
+        super.onResume();
+
+        // Atualiza drawer
+        drawer.setSelection(2);
+    }
 }

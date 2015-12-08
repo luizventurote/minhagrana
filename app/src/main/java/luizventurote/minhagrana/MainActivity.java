@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context = this;
     private List<Map<String, Object>> gastos;
     private AccountHeader headerResult = null;
-    private Drawer result = null;
+    private Drawer drawer = null;
     private boolean opened = false;
     static SQLiteDatabase database;
     private Toast mToast;
@@ -102,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Atualiza a list view
         this.showListView();
+
+        // Atualiza drawer
+        drawer.setSelection(1);
     }
 
     /**
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Create the drawer
-        result = new DrawerBuilder(this)
+        drawer = new DrawerBuilder(this)
                 .withRootView(R.id.drawer_container)
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggleAnimated(true)

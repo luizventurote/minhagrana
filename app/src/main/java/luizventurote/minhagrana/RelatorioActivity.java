@@ -189,7 +189,7 @@ public class RelatorioActivity extends AppCompatActivity implements SeekBar.OnSe
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
+        //overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
     public class MyYAxisValueFormatter implements YAxisValueFormatter {
